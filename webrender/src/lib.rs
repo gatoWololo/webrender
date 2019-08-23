@@ -68,6 +68,8 @@ extern crate malloc_size_of_derive;
 extern crate serde;
 #[macro_use]
 extern crate thread_profiler;
+#[macro_use]
+extern crate rr_channel;
 
 extern crate wr_malloc_size_of;
 use wr_malloc_size_of as malloc_size_of;

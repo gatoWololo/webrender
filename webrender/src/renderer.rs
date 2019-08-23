@@ -99,7 +99,7 @@ use std::rc::Rc;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::{channel, Receiver};
-use std::thread;
+use rr_channel::thread;
 use std::cell::RefCell;
 use texture_cache::TextureCache;
 use thread_profiler::{register_thread_with_profiler, write_profile};

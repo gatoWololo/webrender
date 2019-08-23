@@ -7,7 +7,7 @@ use api::channel::MsgSender;
 use print_tree::PrintTreePrinter;
 use std::sync::mpsc::{channel, Receiver};
 use std::sync::mpsc::Sender;
-use std::thread;
+use rr_channel::thread;
 use ws;
 use base64::encode;
 use image_loader;

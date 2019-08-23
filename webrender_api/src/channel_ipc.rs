@@ -2,11 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-use ipc_channel::ipc::{self, IpcBytesReceiver, IpcBytesSender, IpcReceiver, IpcSender};
+use rr_channel::ipc::{self, IpcBytesReceiver, IpcBytesSender, IpcReceiver, IpcSender};
 use serde::{Deserialize, Serialize};
 use std::io::{Error, ErrorKind};
 use std::sync::mpsc;
-use std::thread;
+use rr_channel::thread;
 use std::{error, io};
 
 ///
