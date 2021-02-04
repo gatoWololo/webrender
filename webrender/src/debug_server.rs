@@ -12,6 +12,7 @@ use std::thread;
 use ws;
 use base64::encode;
 use image_loader;
+use rr_channel;
 
 // Messages that are sent from the render backend to the renderer
 // debug command queue. These are sent in a separate queue so
@@ -126,7 +127,7 @@ impl DebugServerImpl {
 
         let broadcaster = socket.broadcaster();
 
-        let join_handle = Some(thread::spawn(move || {
+        let join_handle = Some(rr_channel::detthread::spawn(move || {
             let address = "127.0.0.1:3583";
             debug!("WebRender debug server started: {}", address);
             if let Err(..) = socket.listen(address) {

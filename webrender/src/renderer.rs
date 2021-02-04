@@ -113,6 +113,7 @@ use std::cell::RefCell;
 use tracy_rs::register_thread_with_profiler;
 use time::precise_time_ns;
 use std::ffi::CString;
+use rr_channel;
 
 cfg_if! {
     if #[cfg(feature = "debugger")] {
@@ -2514,7 +2515,8 @@ impl Renderer {
 
         let sb_font_instances = font_instances.clone();
 
-        thread::Builder::new().name(scene_thread_name.clone()).spawn(move || {
+
+        rr_channel::detthread::Builder::new().name(scene_thread_name.clone()).spawn(move || {
             register_thread_with_profiler(scene_thread_name.clone());
             if let Some(ref thread_listener) = *thread_listener_for_scene_builder {
                 thread_listener.thread_started(&scene_thread_name);
@@ -2543,7 +2545,7 @@ impl Renderer {
                 simulate_slow_ms: 0,
             };
 
-            thread::Builder::new().name(lp_scene_thread_name.clone()).spawn(move || {
+            rr_channel::detthread::Builder::new().name(lp_scene_thread_name.clone()).spawn(move || {
                 register_thread_with_profiler(lp_scene_thread_name.clone());
                 if let Some(ref thread_listener) = *thread_listener_for_lp_scene_builder {
                     thread_listener.thread_started(&lp_scene_thread_name);
@@ -2570,7 +2572,7 @@ impl Renderer {
         let enable_multithreading = options.enable_multithreading;
         let texture_cache_eviction_threshold_bytes = options.texture_cache_eviction_threshold_bytes;
         let texture_cache_max_evictions_per_frame = options.texture_cache_max_evictions_per_frame;
-        thread::Builder::new().name(rb_thread_name.clone()).spawn(move || {
+        rr_channel::detthread::Builder::new().name(rb_thread_name.clone()).spawn(move || {
             register_thread_with_profiler(rb_thread_name.clone());
             if let Some(ref thread_listener) = *thread_listener_for_render_backend {
                 thread_listener.thread_started(&rb_thread_name);
